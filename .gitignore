@@ -1,0 +1,11 @@
+# Execuetable binaries
+brute
+gen
+sol
+
+# Output Files
+brut_out
+sol_out
+
+# Input Files
+in1
