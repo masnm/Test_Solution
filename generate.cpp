@@ -15,17 +15,19 @@ void prepare_lookup_table ()
 
 void do_task ()
 {
-	int n = rand()%15; ++n;
+	random_device rd;
+	mt19937 mt(rd());
+	uniform_int_distribution<int> dist(-100, 100);
+	uniform_int_distribution<int> gn(1, 10);
+	ll n; n = gn(mt);
 	cout << n << endl;
 	for ( int i = 0 ; i < n ; ++i ) {
-		int cnt = ((rand()%5)+1)*2;
-		while ( cnt-- ) {
-			int r = rand()%3;
-			char ch = 'A' + r;
-			cout << ch;
+		for ( int j = 0 ; j < i+1 ; ++j ) {
+			cout << dist(mt) << " ";
 		}
 		cout << endl;
 	}
+	cout << endl;
 }
 
 int main ()
@@ -36,6 +38,7 @@ int main ()
 	prepare_lookup_table();
 
 	ll t = 1;
+//	cin >> t;
 	while ( t-- ) {
 		do_task();
 	}

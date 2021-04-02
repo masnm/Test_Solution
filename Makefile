@@ -4,6 +4,8 @@ t:
 	@g++ -std=c++17 -Wshadow -Wall -o a.out generate.cpp -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g
 	@./a.out
 	@rm a.out
+reset:
+	@rm brut_out sol_out brute gen sol
 input:
 	@gedit solution.cpp
 	@gedit brute_force.cpp

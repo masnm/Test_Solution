@@ -1,54 +1,41 @@
-#include <bits/stdc++.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <math.h>
+#include <string.h>
+#include <stdbool.h>
 
-using namespace std;
-
-#define endl "\n"
-#define ll long long
-#define ld long double
-
-#define chmax(a,b) if ( a < b ) a = b
-#define chmin(a,b) if ( a > b ) a = b
-
-void prepare_lookup_table ()
-{
-}
-
-void no () { cout << "No\n"; }
-
-void do_task ()
-{
-	string s; cin >> s;
-	if ( s[0] == s.back() ) return no();
-	int len = s.length(), count = 0;
-	for ( int i = 0 ; i < len ; ++i ) if (s[0]==s[i]) ++count;
-	if ( count > len/2 ) return no();
-	bool b = false;
-	if ( count == len/2 ) b=true;
-	int stk = 0;
-	for ( char i : s ) {
-		if ( i == s[0] ) ++stk;
-		else if ( i == s[len-1] ) --stk;
-		else if ( b ) --stk;
-		else ++stk;
-		if ( stk < 0 ) return no();
-	}
-	if ( stk ) return no();
-	else cout << "Yes\n";
-}
+int max ( int a, int b ) { return (a>b ? a : b); }
 
 int main ()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-
-	prepare_lookup_table();
-
-	ll t = 1;
-	cin >> t;
-	while ( t-- ) {
-		do_task();
+//	freopen("slalom.in", "r", stdin);
+//	freopen("slalom.out", "w", stdout);
+	int n; scanf( "%d", &n );
+	int a[100][100] = { }, b[100][100] = { };
+	for ( int i = 0 ; i < n ; ++i ) {
+		for ( int j = 0 ; j < i+1 ; ++j ) {
+			scanf( "%d", &a[i][j] );
+			b[i][j] = INT_MIN;
+		}
 	}
-
+	b[0][0] = a[0][0];
+	for ( int r = 1 ; r < n ; ++r ) {
+		for ( int c = 0 ; c <= r ; ++c ) {
+			if ( c < r ) {
+				b[r][c] = max ( b[r][c], ( b[r-1][c] + a[r][c] ) );
+			}
+			if ( c ) {
+				b[r][c] = max ( b[r][c], ( b[r-1][c-1] + a[r][c] ) );
+			}
+		}
+	}
+	int mon = n-1;
+	int ans = b[mon][0];
+	for ( int i = 1 ; i < n ; ++i ) {
+		if ( ans < b[mon][i] ) ans = b[mon][i];
+	}
+	printf( "%d\n", ans );
 
 	return 0;
 }

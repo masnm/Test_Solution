@@ -15,6 +15,11 @@ void prepare_lookup_table ()
 
 void do_task ()
 {
+	random_device rd;
+	mt19937 mt(rd());
+	uniform_int_distribution<int> dist(-100, 100);
+	uniform_int_distribution<int> gn(1, 10);
+	ll n; n = gn(mt);
 }
 
 int main ()
