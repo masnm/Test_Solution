@@ -24,3 +24,20 @@ git:
 	@git commit -S 
 	@git push
 	@clear
+show:
+	@g++ -O2 -std=c++17 -Wno-unused-result -Wshadow -Wall -o gen generate.cpp
+	@g++ -O2 -std=c++17 -Wno-unused-result -Wshadow -Wall -o sol solution.cpp
+	@./gen > in1
+	@cat in1
+	@./sol < in1 > out
+	@cat out
+	@rm gen sol out
+asser:
+	@g++ -O2 -std=c++17 -Wno-unused-result -Wshadow -Wall -o gen generate.cpp
+	@g++ -O2 -std=c++17 -Wno-unused-result -Wshadow -Wall -o sol solution.cpp
+	@./asr.sh
+	@rm gen sol sol_out
+gen:
+	@g++ -O2 -std=c++17 -Wno-unused-result -Wshadow -Wall -o gen generate.cpp
+	@./gen
+	@rm gen

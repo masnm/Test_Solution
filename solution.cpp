@@ -1,42 +1,62 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <math.h>
-#include <string.h>
-#include <stdbool.h>
+#include <bits/stdc++.h>
 
-int max ( int a, int b ) { return (a>b ? a : b); }
+using namespace std;
+
+#define endl '\n'
+typedef long double ld;
+typedef long long int ll;
+typedef unsigned long long ull;
+
+template<typename T> void chmax ( T& a, T b ) { if ( a < b ) a = b; }
+template<typename T> void chmin ( T& a, T b ) { if ( a > b ) a = b; }
+
+void prepare_lookup_table ()
+{
+}
+
+void do_task ()
+{
+	ll n, m; cin >> n >> m;
+	vector<ll> a(n),b(n-1);
+	for ( auto& i : a ) cin >> i;
+	for ( auto& i : b ) cin >> i;
+	ll ans = LLONG_MAX, have = 0, steps = 0, earn, need, nx;
+	for ( ll i = 0 ; i < n ; ++i ) {
+		earn = a[i];
+		need = m-have;
+		nx = need/earn + (need%earn==0?0:1);
+		chmin(ans,nx+steps);
+		if ( i < n-1 ) {
+			need = b[i] - have;
+			nx = need / earn;
+			if ( nx*earn == need ) {
+				steps += nx + 1;
+				have = 0;
+			} else {
+				steps += nx + 2;
+				have = ((nx+1)*earn)-b[i];
+			}
+		}
+	}
+	cout << ans << endl;
+}
 
 int main ()
 {
-//	freopen("slalom.in", "r", stdin);
-//	freopen("slalom.out", "w", stdout);
-	int n; scanf( "%d", &n );
-	int a[100][100] = { }, b[100][100] = { };
-	for ( int i = 0 ; i < n ; ++i ) {
-		for ( int j = 0 ; j < i+1 ; ++j ) {
-			scanf( "%d", &a[i][j] );
-			b[i][j] = INT_MIN;
-		}
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+
+	prepare_lookup_table();
+
+	int t = 1;
+	cin >> t;
+	for ( int i = 1 ; i <= t ; ++i ) {
+		//cout << "Case " << i << ": " ;
+		do_task();
 	}
-	b[0][0] = a[0][0];
-	for ( int r = 1 ; r < n ; ++r ) {
-		for ( int c = 0 ; c <= r ; ++c ) {
-			if ( c < r ) {
-				b[r][c] = max ( b[r][c], ( b[r-1][c] + a[r][c] ) );
-			}
-			if ( c ) {
-				b[r][c] = max ( b[r][c], ( b[r-1][c-1] + a[r][c] ) );
-			}
-		}
-	}
-	int mon = n-1;
-	int ans = b[mon][0];
-	for ( int i = 1 ; i < n ; ++i ) {
-		if ( ans < b[mon][i] ) ans = b[mon][i];
-	}
-	printf( "%d\n", ans );
+
 
 	return 0;
 }
+// resize-pane -L 30 
 
