@@ -8,7 +8,7 @@ void solve() {
     int n, c;
     cin >> n >> c;
     vector<int> a(n);
-    vector<int> b(n — 1);
+    vector<int> b(n - 1);
     for (int &e : a) {
         cin >> e;
     }
@@ -20,10 +20,10 @@ void solve() {
     ll cur = 0;
     ll bal = 0;
     for (int i = 0; i < n; i++) {
-        ans = min(ans, cur + max(0ll, c — bal + a[i] — 1) / a[i]);
-        ll newDays = max(0ll, b[i] — bal + a[i] — 1) / a[i];
+        ans = min(ans, cur + max(0ll, c - bal + a[i] - 1) / a[i]);
+        ll newDays = max(0ll, b[i] - bal + a[i] - 1) / a[i];
         cur += newDays + 1;
-        bal += a[i] * newDays — b[i];
+        bal += a[i] * newDays - b[i];
     }
     cout << ans << "\n";
 }
