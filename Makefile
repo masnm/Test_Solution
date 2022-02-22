@@ -7,8 +7,8 @@ t:
 reset:
 	@rm brut_out sol_out brute gen sol
 input:
-	@gedit solution.cpp
-	@gedit brute_force.cpp
+	@mousepad solution.cpp
+	@mousepad brute_force.cpp
 	@cp template generate.cpp
 	@vim generate.cpp
 test:
